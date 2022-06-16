@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonInfiniteScroll } from '@ionic/angular';
+
 import { NewsService } from 'src/app/services/news.service';
 import { Article } from "../../interfaces";
-import { IonInfiniteScroll } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
