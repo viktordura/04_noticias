@@ -11,16 +11,25 @@ export class StorageService {
   private _storage: Storage | null = null;
   private _localArticles: Article[] = [];
 
+
+
   constructor( private storage: Storage ) { 
 
     this.init();
   }
 
 
+  get getLocalArticles() {
+
+    return [ ...this._localArticles ];
+
+  }
+
   async init() {
     
     const storage = await this.storage.create();
     this._storage = storage;
+    this.loadFavorites();
   
   }
 
@@ -44,6 +53,28 @@ export class StorageService {
     this._storage.set( 'articles', this._localArticles );
 
   }
+
+  async loadFavorites(){
+
+    try {
+      
+      const articles = await this._storage.get( 'articles' );
+      this._localArticles = articles || [];
+
+    } catch (error) {
+       
+    }
+  }
+
+  articleInFavorites( article : Article){
+
+    return !!this._localArticles.find( localArticle => localArticle.title === article.title );
+
+
+  }
+
+
+
 
 
 
